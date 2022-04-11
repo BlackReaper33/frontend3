@@ -14,12 +14,12 @@ import {
 } from '@material-ui/core';
 import { GroupAdd, AddToQueue } from '@material-ui/icons';
 import axios from '../Api/api';
-
+import axiosStatic from 'axios';
 import { addChannel, addServer } from '../../actions';
 import { StoreState } from '../../reducers';
 
 interface ActionsModalProps {
-  handleSnackMessage: (response: string, pass: boolean) => void;
+  handleSnackMessage: (response: string, pass?: boolean) => void;
   modalType: string;
 }
 
@@ -70,9 +70,11 @@ export default function ActionsModal(props: ActionsModalProps) {
       } created`;
       handleSnackMessage(message, false);
     } catch (err) {
-      handleSnackMessage(err.response.data, false);
-    }
-  };
+      if (axiosStatic.isAxiosError(err)) {
+          handleSnackMessage(err.response?.data)
+      } else {
+
+  }};
 
   // Method to handle joining of servers
   const handleJoinServer = async (serverId: string, userId: string) => {
@@ -80,9 +82,11 @@ export default function ActionsModal(props: ActionsModalProps) {
       const response = await axios.post(`/server/join?serverId=${serverId}&userId=${userId}`);
       handleSnackMessage(response.data, true);
     } catch (err) {
-      handleSnackMessage(err.response.data, false);
-    }
-  };
+      if (axiosStatic.isAxiosError(err)) {
+          handleSnackMessage(err.response?.data)
+      } else {
+
+  }};
 
   // Method to handle renaming of servers
   const handleRenameServer = async (serverName: string, serverId: string) => {
@@ -92,9 +96,11 @@ export default function ActionsModal(props: ActionsModalProps) {
       );
       handleSnackMessage(response.data, true);
     } catch (err) {
-      handleSnackMessage(err.response.data, false);
-    }
-  };
+      if (axiosStatic.isAxiosError(err)) {
+          handleSnackMessage(err.response?.data)
+      } else {
+
+  }};
 
   // Method to handle deleting servers
   const handleDeleteServer = async (serverId: string, userId: string) => {
@@ -102,9 +108,11 @@ export default function ActionsModal(props: ActionsModalProps) {
       const response = await axios.delete(`/server/delete?serverId=${serverId}&userId=${userId}`);
       handleSnackMessage(response.data, true);
     } catch (err) {
-      handleSnackMessage(err.response.data, false);
-    }
-  };
+      if (axiosStatic.isAxiosError(err)) {
+          handleSnackMessage(err.response?.data)
+      } else {
+
+  }};
 
   // Method to handle creation of channels
   const handleCreateChannel = async (channelName: string, server: string) => {
@@ -116,9 +124,11 @@ export default function ActionsModal(props: ActionsModalProps) {
       )} created`;
       handleSnackMessage(message, false);
     } catch (err) {
-      handleSnackMessage(err.response.data, false);
-    }
-  };
+      if (axiosStatic.isAxiosError(err)) {
+          handleSnackMessage(err.response?.data)
+      } else {
+
+  }};
 
   // Method to handle renaming of channels
   const handleRenameChannel = async (channelName: string, channelId: string) => {
@@ -130,9 +140,11 @@ export default function ActionsModal(props: ActionsModalProps) {
       );
       handleSnackMessage(response.data, true);
     } catch (err) {
-      handleSnackMessage(err.response.data, false);
-    }
-  };
+      if (axiosStatic.isAxiosError(err)) {
+          handleSnackMessage(err.response?.data)
+      } else {
+
+  }};
 
   // Method to handle deleting of channels
   const handleDeleteChannel = async (channelName: string, channelId: string) => {
@@ -142,9 +154,11 @@ export default function ActionsModal(props: ActionsModalProps) {
       );
       handleSnackMessage(response.data, true);
     } catch (err) {
-      handleSnackMessage(err.response.data, false);
-    }
-  };
+      if (axiosStatic.isAxiosError(err)) {
+          handleSnackMessage(err.response?.data)
+      } else {
+
+  }};
 
   // Handles keypress and calls the callback method
   const handleKeyPress = (e: KeyboardEvent, callbackMethod: Function) => {
@@ -514,4 +528,4 @@ export default function ActionsModal(props: ActionsModalProps) {
   } else if (modalType === 'server-delete') {
     return <Paper className="container-prompt">{renderServerDelete()}</Paper>;
   } else return null;
-}
+}}}}}}}}
